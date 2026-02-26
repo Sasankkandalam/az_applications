@@ -310,7 +310,7 @@ export default function App1SkepticalOncologist() {
         </div>
 
         {/* Research Cards */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 items-start">
           {researchOptions.map(option => {
             const Icon = option.icon;
             const selected = !!selectedResearch.find(r => r.id === option.id);
@@ -321,19 +321,22 @@ export default function App1SkepticalOncologist() {
                 className={`bg-white/95 backdrop-blur rounded-xl border-2 shadow-md hover:shadow-lg transition-all cursor-pointer
                   ${selected ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:border-blue-300'}`}
               >
-                <div className="p-4 sm:p-5">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${selected ? 'bg-blue-500' : 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10'}`}>
-                      <Icon className={`w-5 h-5 ${selected ? 'text-white' : 'text-blue-600'}`} />
+                <div className={`${selected ? 'p-4 sm:p-5' : 'p-3 sm:p-4'}`}>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${selected ? 'bg-blue-500' : 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10'}`}>
+                        <Icon className={`w-4 h-4 ${selected ? 'text-white' : 'text-blue-600'}`} />
+                      </div>
+                      <h3 className="font-bold text-slate-900 text-sm">{option.title}</h3>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${selected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>+{option.points} pts</span>
-                      {selected && <CheckCircle2 className="w-5 h-5 text-blue-600" />}
+                      {selected && <CheckCircle2 className="w-4 h-4 text-blue-600" />}
                     </div>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-sm sm:text-base mb-2">{option.title}</h3>
+                  {!selected && <p className="text-slate-400 text-xs pl-10">Click to run AI analysis</p>}
                   {selected && (
-                    <div className="space-y-2">
+                    <div className="space-y-2 mt-3">
                       <div className="bg-white border border-blue-200 rounded-lg p-3">
                         <p className="text-slate-700 text-xs sm:text-sm leading-relaxed">{option.insight}</p>
                       </div>
@@ -346,7 +349,6 @@ export default function App1SkepticalOncologist() {
                       </div>
                     </div>
                   )}
-                  {!selected && <p className="text-slate-500 text-sm">Click to run AI analysis</p>}
                 </div>
               </div>
             );

@@ -365,7 +365,7 @@ export default function App5ContentCreator() {
   // ---- INPUT STAGE ----
   if (stage === 'input') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-rose-900/20 to-slate-900 p-3 sm:p-4 md:p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-3 sm:p-4 md:p-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <button onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-400 hover:text-white text-sm transition-colors">
@@ -443,7 +443,7 @@ export default function App5ContentCreator() {
   // ---- PROCESSING STAGE ----
   if (stage === 'processing') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-rose-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
         <div className="bg-white/10 backdrop-blur rounded-2xl border border-white/20 p-8 max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center mx-auto mb-5 shadow-lg">
             <Brain className="w-8 h-8 text-white animate-pulse" />
@@ -481,7 +481,7 @@ export default function App5ContentCreator() {
     const summaryTextColor = criticalCount > 0 ? 'text-red-700' : highCount > 0 ? 'text-orange-700' : violations.length > 0 ? 'text-amber-700' : 'text-emerald-700';
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-rose-900/20 to-slate-900 p-3 sm:p-4 md:p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-3 sm:p-4 md:p-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
             <div className="flex items-center gap-2">
@@ -658,7 +658,7 @@ export default function App5ContentCreator() {
   if (stage === 'saved' && processedContent) {
     const { violations, actions } = processedContent;
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-rose-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
         <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8">
           <div className="text-center mb-6">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center mx-auto mb-3 shadow-lg">

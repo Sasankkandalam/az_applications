@@ -6,7 +6,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://sasankkandalam_db_user:i2ir8bJ0uqdsduUB@cluster0.s4ftxhs.mongodb.net/?appName=Cluster0';
+// Require MONGODB_URI from environment — never hardcode credentials
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+  console.error('ERROR: MONGODB_URI environment variable is required. Set it in your .env file.');
+  process.exit(1);
+}
 
 app.use(cors());
 app.use(express.json());

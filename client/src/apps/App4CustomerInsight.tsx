@@ -482,7 +482,7 @@ export default function App4CustomerInsight() {
   // ---- SELECTION PHASE ----
   if (phase === 'select') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900/20 to-slate-900 p-3 sm:p-4 md:p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-3 sm:p-4 md:p-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
             <button onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-400 hover:text-white text-sm transition-colors">
@@ -608,7 +608,7 @@ export default function App4CustomerInsight() {
   // ---- GENERATING PHASE ----
   if (phase === 'generating') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
         <div className="bg-white/10 backdrop-blur rounded-2xl border border-white/20 p-8 max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mx-auto mb-5 shadow-lg">
             <Brain className="w-8 h-8 text-white animate-pulse" />
@@ -657,7 +657,7 @@ export default function App4CustomerInsight() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-900/20 to-slate-900 p-3 sm:p-4 md:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-3 sm:p-4 md:p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white/10 backdrop-blur rounded-xl border border-white/20 p-4 mb-4">
