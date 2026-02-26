@@ -1,22 +1,23 @@
 const mongoose = require('mongoose');
 
-// MONGODB_URI must be set as a Vercel Environment Variable — never hardcoded
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error('MONGODB_URI environment variable is not defined. Add it in Vercel project settings.');
-}
-
 // Cache the database connection across serverless invocations
 let cachedConnection = null;
 
 async function connectToDatabase() {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI environment variable is not set in Vercel project settings.');
+  }
+
   if (cachedConnection && mongoose.connection.readyState === 1) {
     return cachedConnection;
   }
+
   const connection = await mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
-    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
+    maxPoolSize: 5,
+    bufferCommands: false,
   });
   cachedConnection = connection;
   return connection;
@@ -66,7 +67,7 @@ module.exports = async function handler(req, res) {
       return res.status(405).json({ error: 'Method not allowed' });
     }
   } catch (error) {
-    console.error('API error:', error);
+    console.error('Leaderboard API error:', error.message);
     return res.status(500).json({ error: 'Internal server error', message: error.message });
   }
 };

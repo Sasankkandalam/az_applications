@@ -102,9 +102,10 @@ export default function HomePage() {
       </div>
 
       {/* Apps Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {apps.map((app) => {
+      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-12 pb-16">
+        {/* Row 1: 3 cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {apps.slice(0, 3).map((app) => {
             const Icon = app.icon;
             return (
               <div
@@ -112,37 +113,21 @@ export default function HomePage() {
                 onClick={() => navigate(app.path)}
                 className={`group relative bg-white/95 backdrop-blur rounded-xl sm:rounded-2xl border ${app.borderColor} shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden`}
               >
-                {/* Card gradient background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${app.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-
-                {/* App number badge */}
-                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center">
-                  <span className="text-slate-500 text-xs font-bold">{app.id}</span>
-                </div>
-
                 <div className="relative p-5 sm:p-6">
-                  {/* Icon */}
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
                     <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
-
-                  {/* Tag */}
                   <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${app.tagColor} mb-3`}>
                     {app.tag}
                   </span>
-
-                  {/* Title */}
                   <h2 className="text-slate-900 font-bold text-lg sm:text-xl leading-tight mb-1">
                     {app.title}
                   </h2>
                   <p className="text-slate-500 font-medium text-sm mb-3">{app.subtitle}</p>
-
-                  {/* Description */}
                   <p className="text-slate-600 text-sm leading-relaxed mb-5">
                     {app.description}
                   </p>
-
-                  {/* CTA */}
                   <div className={`flex items-center gap-2 bg-gradient-to-r ${app.gradient} text-white px-4 py-2.5 rounded-lg font-semibold text-sm group-hover:shadow-md transition-all duration-300`}>
                     <span>Launch App</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -151,17 +136,41 @@ export default function HomePage() {
               </div>
             );
           })}
+        </div>
 
-          {/* Decorative "Coming Soon" placeholder for 6th slot on large screens */}
-          <div className="hidden lg:flex items-center justify-center bg-white/5 rounded-2xl border border-white/10 border-dashed p-6">
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-3">
-                <Activity className="w-6 h-6 text-white/30" />
+        {/* Row 2: 2 cards centered */}
+        <div className="flex flex-wrap justify-center gap-5 sm:gap-6 mt-5 sm:mt-6">
+          {apps.slice(3).map((app) => {
+            const Icon = app.icon;
+            return (
+              <div
+                key={app.id}
+                onClick={() => navigate(app.path)}
+                className={`group relative bg-white/95 backdrop-blur rounded-xl sm:rounded-2xl border ${app.borderColor} shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-14px)]`}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${app.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="relative p-5 sm:p-6">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${app.gradient} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                  <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${app.tagColor} mb-3`}>
+                    {app.tag}
+                  </span>
+                  <h2 className="text-slate-900 font-bold text-lg sm:text-xl leading-tight mb-1">
+                    {app.title}
+                  </h2>
+                  <p className="text-slate-500 font-medium text-sm mb-3">{app.subtitle}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-5">
+                    {app.description}
+                  </p>
+                  <div className={`flex items-center gap-2 bg-gradient-to-r ${app.gradient} text-white px-4 py-2.5 rounded-lg font-semibold text-sm group-hover:shadow-md transition-all duration-300`}>
+                    <span>Launch App</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
               </div>
-              <p className="text-white/30 font-medium text-sm">More Apps</p>
-              <p className="text-white/20 text-xs mt-1">Coming Soon</p>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
         {/* Footer */}
