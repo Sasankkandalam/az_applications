@@ -102,7 +102,7 @@ export default function HomePage() {
       </div>
 
       {/* Apps Grid */}
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-12 pb-16">
+      <div className="max-w-4xl mx-auto px-10 sm:px-14 lg:px-16 pt-10 sm:pt-12 pb-16">
         {/* Row 1: 3 cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {apps.slice(0, 3).map((app) => {
