@@ -398,8 +398,8 @@ export default function App5ContentCreator() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-3 sm:p-4 md:p-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
-            <button onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-400 hover:text-white text-sm transition-colors">
-              <ArrowLeft className="w-4 h-4" />
+            <button type="button" onClick={() => navigate('/')} aria-label="Home" className="flex items-center gap-1.5 text-slate-400 hover:text-white text-sm transition-colors">
+              <ArrowLeft className="w-4 h-4" /> Home
             </button>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center shadow-md">
               <FileEdit className="w-5 h-5 text-white" />
@@ -438,26 +438,10 @@ export default function App5ContentCreator() {
 
             {/* Text Input */}
             <div className="bg-white/10 backdrop-blur rounded-2xl border border-white/20 p-4 sm:p-5 flex flex-col">
-              <div className="flex items-center justify-between mb-1">
-                <h2 className="text-white font-bold text-base flex items-center gap-2">
-                  <Type className="w-4 h-4 text-rose-400" /> Call Notes Input
-                </h2>
-                <button
-                  type="button"
-                  onClick={toggleRecording}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                    isRecording
-                      ? 'bg-red-500 text-white animate-pulse'
-                      : 'bg-white/10 text-slate-300 hover:bg-rose-500/20 hover:text-rose-300 border border-white/20'
-                  }`}
-                >
-                  {isRecording ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
-                  {isRecording ? 'Stop Recording' : 'Voice Input'}
-                </button>
-              </div>
-              <p className="text-slate-400 text-xs mb-3">
-                {isRecording ? '🔴 Listening... speak your call notes in English' : 'Type, paste, or use Voice Input to enter your raw call notes'}
-              </p>
+              <h2 className="text-white font-bold text-base flex items-center gap-2 mb-1">
+                <Type className="w-4 h-4 text-rose-400" /> Call Notes Input
+              </h2>
+              <p className="text-slate-400 text-xs mb-3">Type or paste your raw call notes below</p>
               <textarea
                 value={rawNotes}
                 onChange={e => setRawNotes(e.target.value)}
@@ -467,9 +451,26 @@ export default function App5ContentCreator() {
               <div className="flex items-center justify-between mt-3">
                 <span className="text-slate-500 text-xs">{rawNotes.length} characters</span>
                 {rawNotes.length > 0 && (
-                  <button onClick={() => setRawNotes('')} className="text-slate-400 hover:text-white text-xs transition-colors">Clear</button>
+                  <button type="button" onClick={() => setRawNotes('')} className="text-slate-400 hover:text-white text-xs transition-colors">Clear</button>
                 )}
               </div>
+
+              {/* Voice Input */}
+              <button
+                type="button"
+                onClick={toggleRecording}
+                className={`mt-3 w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                  isRecording
+                    ? 'bg-red-500 text-white animate-pulse'
+                    : 'bg-white/10 text-slate-300 hover:bg-rose-500/20 hover:text-rose-300 border border-white/20'
+                }`}
+              >
+                {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                {isRecording ? 'Stop Recording' : 'Voice Input'}
+              </button>
+              <p className="text-slate-500 text-xs mt-2 text-center">
+                🎙️ Hold device close to microphone &bull; Speak clearly in English only
+              </p>
 
               {rawNotes.length > 50 && (
                 <button
@@ -533,8 +534,8 @@ export default function App5ContentCreator() {
           <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
             <div className="flex items-center gap-2">
               <button type="button" onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-sm transition-colors"><ArrowLeft className="w-4 h-4" /> Home</button>
-              <button onClick={() => setStage('input')} className="flex items-center gap-1 text-slate-400 hover:text-white text-sm transition-colors">
-                <ArrowLeft className="w-4 h-4" />
+              <button type="button" onClick={() => setStage('input')} aria-label="Edit Notes" className="flex items-center gap-1 text-slate-400 hover:text-white text-sm transition-colors">
+                <ArrowLeft className="w-4 h-4" /> Edit Notes
               </button>
               <h1 className="text-white font-bold text-lg sm:text-xl">Compliance Review</h1>
             </div>
