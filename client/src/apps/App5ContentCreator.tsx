@@ -310,6 +310,11 @@ export default function App5ContentCreator() {
   const [activeSection, setActiveSection] = useState<'violations' | 'actions' | 'cleaned'>('violations');
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<any>(null);
+  const [pendingContent, setPendingContent] = useState<{
+    violations: Violation[];
+    actions: FollowUpAction[];
+    cleaned: CleanedContent;
+  } | null>(null);
 
   useEffect(() => {
     if (stage !== 'processing') return;
@@ -317,21 +322,40 @@ export default function App5ContentCreator() {
       const timer = setTimeout(() => setProcessingStep(s => s + 1), 480);
       return () => clearTimeout(timer);
     } else {
-      const timer = setTimeout(() => {
-        setProcessedContent({
-          violations: detectViolations(rawNotes),
-          actions: generateFollowUpActions(rawNotes),
-          cleaned: createCleanedContent(rawNotes),
-        });
-        setStage('review');
-      }, 300);
-      return () => clearTimeout(timer);
+      if (pendingContent) {
+        const timer = setTimeout(() => {
+          setProcessedContent(pendingContent);
+          setPendingContent(null);
+          setStage('review');
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+      // API not done yet — wait; effect re-runs when pendingContent arrives
     }
-  }, [stage, processingStep, rawNotes]);
+  }, [stage, processingStep, pendingContent]);
 
-  const handleProcess = () => {
+  const handleProcess = async () => {
+    setPendingContent(null);
     setProcessingStep(0);
     setStage('processing');
+
+    try {
+      const response = await fetch('/api/compliance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes: rawNotes }),
+      });
+      if (!response.ok) throw new Error(`API returned ${response.status}`);
+      const data = await response.json();
+      setPendingContent(data);
+    } catch {
+      // Fallback to local analysis if API fails
+      setPendingContent({
+        violations: detectViolations(rawNotes),
+        actions: generateFollowUpActions(rawNotes),
+        cleaned: createCleanedContent(rawNotes),
+      });
+    }
   };
 
   const handleSave = () => {
@@ -342,6 +366,7 @@ export default function App5ContentCreator() {
     setStage('input');
     setRawNotes('');
     setProcessedContent(null);
+    setPendingContent(null);
     setProcessingStep(0);
     setActiveSection('violations');
   };
@@ -534,9 +559,6 @@ export default function App5ContentCreator() {
           <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
             <div className="flex items-center gap-2">
               <button type="button" onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-sm transition-colors"><ArrowLeft className="w-4 h-4" /> Home</button>
-              <button type="button" onClick={() => setStage('input')} aria-label="Edit Notes" className="flex items-center gap-1 text-slate-400 hover:text-white text-sm transition-colors">
-                <ArrowLeft className="w-4 h-4" /> Edit Notes
-              </button>
               <h1 className="text-white font-bold text-lg sm:text-xl">Compliance Review</h1>
             </div>
             <button onClick={handleReset} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white text-sm px-3 py-1.5 rounded-lg transition-all">

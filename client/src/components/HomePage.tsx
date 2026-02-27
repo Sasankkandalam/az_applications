@@ -79,9 +79,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="flex items-center justify-center mb-6">
-            <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
-              <img src="/az-logo.png" alt="AstraZeneca" className="h-12 sm:h-16 w-auto" />
-            </div>
+            <img src="/az-logo.png" alt="AstraZeneca" className="h-12 sm:h-16 w-auto" />
           </div>
           <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
             <span className="text-white">AI Applications </span><span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Suite</span>
