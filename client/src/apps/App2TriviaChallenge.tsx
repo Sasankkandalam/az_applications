@@ -434,6 +434,7 @@ export default function App2TriviaChallenge() {
         <div className="max-w-2xl mx-auto">
           {/* Top bar */}
           <div className="bg-white/10 backdrop-blur rounded-xl border border-white/20 p-3 sm:p-4 mb-4">
+            <button type="button" onClick={() => navigate('/')} className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-sm transition-colors mb-2"><ArrowLeft className="w-4 h-4" /> Home</button>
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center justify-center">{playerName.charAt(0).toUpperCase()}</div>

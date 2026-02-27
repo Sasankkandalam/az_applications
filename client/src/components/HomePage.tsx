@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Brain, Trophy, Gamepad2, Lightbulb, FileEdit, ArrowRight, Activity } from 'lucide-react';
+import { Brain, Trophy, Gamepad2, Lightbulb, FileEdit, ArrowRight } from 'lucide-react';
 
 const apps = [
   {
@@ -78,26 +78,14 @@ export default function HomePage() {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
-              <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          <div className="flex items-center justify-center mb-6">
+            <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
+              <img src="/az-logo.png" alt="AstraZeneca" className="h-12 sm:h-16 w-auto" />
             </div>
-            <span className="text-blue-400 font-semibold text-sm sm:text-base tracking-wider uppercase">AstraZeneca</span>
           </div>
-          <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-            AI Applications
-            <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Suite
-            </span>
+          <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <span className="text-white">AI Applications </span><span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Suite</span>
           </h1>
-          <p className="text-center text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Explore our suite of AI-powered tools designed to elevate oncology sales performance,
-            deepen product knowledge, and streamline clinical engagement.
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-6">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-sm font-medium">5 Applications Available</span>
-          </div>
         </div>
       </div>
 
