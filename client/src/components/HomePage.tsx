@@ -74,11 +74,11 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Header — white background so the AZ logo is fully visible */}
-      <div className="bg-white border-b border-slate-200">
+      {/* Header — light blue-purple gradient so the AZ logo is fully visible */}
+      <div className="bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 border-b border-indigo-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 text-center">
           <div className="flex items-center justify-center mb-6">
-            <img src="/az-logo.png" alt="AstraZeneca" className="h-20 sm:h-28 lg:h-32 w-auto" />
+            <img src="/az-logo.png" alt="AstraZeneca" className="h-36 sm:h-44 lg:h-52 w-auto" />
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
             <span className="text-slate-900">AI Applications </span>
