@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, FileEdit, Mic, Type, CheckCircle2, AlertTriangle,
+  ArrowLeft, FileEdit, Mic, MicOff, Type, CheckCircle2, AlertTriangle,
   XCircle, ChevronRight, RotateCcw, Save, Clock, Zap, Brain,
   Mail, Calendar, Shield, FileText, Users
 } from 'lucide-react';
@@ -289,6 +289,14 @@ function createCleanedContent(raw: string): CleanedContent {
   };
 }
 
+const processingSteps = [
+  'Scanning for PhRMA Code violations...',
+  'Checking FDA compliance requirements...',
+  'Analyzing Anti-Kickback statute implications...',
+  'Reformatting notes for CRM standards...',
+  'Generating follow-up action items...',
+];
+
 export default function App5ContentCreator() {
   const navigate = useNavigate();
   const [stage, setStage] = useState<Stage>('input');
@@ -300,14 +308,8 @@ export default function App5ContentCreator() {
   } | null>(null);
   const [processingStep, setProcessingStep] = useState(0);
   const [activeSection, setActiveSection] = useState<'violations' | 'actions' | 'cleaned'>('violations');
-
-  const processingSteps = [
-    'Scanning for PhRMA Code violations...',
-    'Checking FDA compliance requirements...',
-    'Analyzing Anti-Kickback statute implications...',
-    'Reformatting notes for CRM standards...',
-    'Generating follow-up action items...',
-  ];
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     if (stage !== 'processing') return;
@@ -342,6 +344,34 @@ export default function App5ContentCreator() {
     setProcessedContent(null);
     setProcessingStep(0);
     setActiveSection('violations');
+  };
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      recognitionRef.current?.stop();
+      setIsRecording(false);
+      return;
+    }
+    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionAPI) {
+      alert('Voice input is not supported in your browser. Please use Chrome or Edge.');
+      return;
+    }
+    const recognition = new SpeechRecognitionAPI();
+    recognition.lang = 'en-US';
+    recognition.continuous = true;
+    recognition.interimResults = false;
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results as any[])
+        .map((r: any) => r[0].transcript)
+        .join(' ');
+      setRawNotes(prev => prev ? prev + ' ' + transcript : transcript);
+    };
+    recognition.onerror = () => setIsRecording(false);
+    recognition.onend = () => setIsRecording(false);
+    recognition.start();
+    recognitionRef.current = recognition;
+    setIsRecording(true);
   };
 
   const getSeverityColor = (s: string) => {
@@ -408,10 +438,26 @@ export default function App5ContentCreator() {
 
             {/* Text Input */}
             <div className="bg-white/10 backdrop-blur rounded-2xl border border-white/20 p-4 sm:p-5 flex flex-col">
-              <h2 className="text-white font-bold text-base mb-1 flex items-center gap-2">
-                <Type className="w-4 h-4 text-rose-400" /> Call Notes Input
-              </h2>
-              <p className="text-slate-400 text-xs mb-3">Type or paste your raw call notes below</p>
+              <div className="flex items-center justify-between mb-1">
+                <h2 className="text-white font-bold text-base flex items-center gap-2">
+                  <Type className="w-4 h-4 text-rose-400" /> Call Notes Input
+                </h2>
+                <button
+                  type="button"
+                  onClick={toggleRecording}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    isRecording
+                      ? 'bg-red-500 text-white animate-pulse'
+                      : 'bg-white/10 text-slate-300 hover:bg-rose-500/20 hover:text-rose-300 border border-white/20'
+                  }`}
+                >
+                  {isRecording ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+                  {isRecording ? 'Stop Recording' : 'Voice Input'}
+                </button>
+              </div>
+              <p className="text-slate-400 text-xs mb-3">
+                {isRecording ? '🔴 Listening... speak your call notes in English' : 'Type, paste, or use Voice Input to enter your raw call notes'}
+              </p>
               <textarea
                 value={rawNotes}
                 onChange={e => setRawNotes(e.target.value)}
